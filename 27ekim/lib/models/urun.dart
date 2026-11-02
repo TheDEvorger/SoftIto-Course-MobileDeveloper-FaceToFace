@@ -1,0 +1,88 @@
+import 'kategori.dart';
+import 'degerlendirme.dart';
+
+class Urun {
+  final int id;
+  final String baslik;
+  final Kategori kategori;
+  final String aciklama;
+  final double fiyat;
+  final String resimUrl;
+  final int stokAdedi;
+  final bool favoriMi;
+  final Degerlendirme? degerlendirme;
+
+  const Urun({
+    required this.id,
+    required this.baslik,
+    required this.kategori,
+    required this.aciklama,
+    required this.fiyat,
+    required this.resimUrl,
+    required this.stokAdedi,
+    this.degerlendirme,
+    this.favoriMi=false,
+  });
+
+
+factory Urun.fromJson(Map<String,dynamic> json)
+{
+  final degerlendirme = Degerlendirme.fromJson(json['rating'] as Map<String,dynamic>);
+  return Urun(
+    id:json['id']as int,
+    baslik:json['title'] as String,
+    fiyat:(json['price'] as num).toDouble(),
+    aciklama:json['description'] as String,
+    resimUrl:json['image'] as String,
+    kategori:_kategoriCevir(json['category'] as String),
+    stokAdedi:degerlendirme.oySayisi, // API stok bilgisi vermediği için oy sayısı kullanılıyor
+    degerlendirme:degerlendirme,
+    favoriMi:false,
+  );
+}
+
+static Kategori _kategoriCevir(String apiKategori)
+{
+  switch(apiKategori)
+  {
+    case 'electronics':
+      return Kategori.elektronik;
+    case "men's clothing":
+    case "women's clothing":
+      return Kategori.giyim;
+    case 'jewelery':
+      return Kategori.aksesuar;
+    default:
+      return Kategori.hepsi;
+  }
+}
+
+Urun copyWith({
+    int? id,
+    String? baslik,
+    String? aciklama,
+    double? fiyat,
+    String? resimUrl,
+    Kategori? kategori,
+    int? stokAdedi,
+    Degerlendirme? degerlendirme,
+    bool? favoriMi,
+  }){
+    return Urun(
+      id: id ?? this.id,
+      baslik: baslik ?? this.baslik,
+      aciklama: aciklama ?? this.aciklama,
+      fiyat: fiyat ?? this.fiyat,
+      resimUrl: resimUrl ?? this.resimUrl,
+      kategori: kategori ?? this.kategori,
+      stokAdedi: stokAdedi ?? this.stokAdedi,
+      degerlendirme: degerlendirme ?? this.degerlendirme,
+      favoriMi: favoriMi ?? this.favoriMi,
+    );
+  }
+  @override
+  String toString(){
+    return "Urun(id: $id, baslik: $baslik, fiyat: $fiyat ₺,favoriMi: $favoriMi)";
+  }
+
+}
