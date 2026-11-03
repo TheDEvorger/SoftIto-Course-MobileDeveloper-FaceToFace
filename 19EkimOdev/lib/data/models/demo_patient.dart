@@ -1,35 +1,45 @@
+// Flutter durum dinleme ve temel tipleri ekler
 import 'package:flutter/foundation.dart';
-
-/// Kurgusal (demo) hasta. Gerçek kimlik bilgisi içermez.
+// Nesnenin değişmez olması gerektiğini belirtir
 @immutable
+// DemoPatient bilgilerini tutan model sınıfı
 class DemoPatient {
+  // Constructor, yeni nesnenin bilgilerini alır
   const DemoPatient({
+    // ID bilgisini zorunlu tutar
     required this.id,
+    // görünen ad bilgisini zorunlu tutar
     required this.displayName,
+    // kod bilgisini zorunlu tutar
     required this.code,
+    // birim bilgisini zorunlu tutar
     required this.department,
   });
-
+  // ID bilgisini tutar
   final String id;
-
-  /// Kurgusal görünen ad.
+  // görünen ad bilgisini tutar
   final String displayName;
-
-  /// Demo hasta kodu (ör. `DEMO-1042`). TC kimlik no DEĞİLDİR.
+  // kod bilgisini tutar
   final String code;
-
-  /// Hizmet / birim bilgisi.
+  // birim bilgisini tutar
   final String department;
-
-  /// Liste ve avatarlarda kullanılan baş harfler.
+  // initials bilgisini döndürür
   String get initials {
+    // parts değerini tanımlar
     final List<String> parts = displayName
+        // Metnin başındaki ve sonundaki boşlukları kaldırır
         .trim()
+        // RegExp nesnesini oluşturur veya kullanır
         .split(RegExp(r'\s+'))
+        // Koşula uyan elemanları filtreler
         .where((String p) => p.isNotEmpty)
+        // Sonucu listeye çevirir
         .toList();
+    // İlgili alan veya liste boşsa kontrol eder
     if (parts.isEmpty) return '?';
+    // Koşul sağlanırsa ilgili işlemi yapar
     if (parts.length == 1) return parts.first[0].toUpperCase();
+    // Hesaplanan sonucu döndürür
     return (parts.first[0] + parts.last[0]).toUpperCase();
   }
 }

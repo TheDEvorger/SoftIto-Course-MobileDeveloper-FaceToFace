@@ -1,6 +1,8 @@
+// SQLite veritabanı kütüphanesini ekler
 import 'package:sqlite3/sqlite3.dart';
-
+// Veritabanı tablolarını oluşturur
 void createSchemaV3(Database db) {
+  // ventures tablosunu oluşturur
   db.execute('''CREATE TABLE ventures (
     id TEXT PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
@@ -9,12 +11,14 @@ void createSchemaV3(Database db) {
     created_at INTEGER NOT NULL,
     is_archived INTEGER NOT NULL DEFAULT 0
   )''');
+  // hypotheses tablosunu oluşturur
   db.execute('''CREATE TABLE hypotheses (
     id TEXT PRIMARY KEY NOT NULL,
     venture_id TEXT NOT NULL REFERENCES ventures(id) ON DELETE CASCADE,
     statement TEXT NOT NULL,
     created_at INTEGER NOT NULL
   )''');
+  // experiments tablosunu oluşturur
   db.execute('''CREATE TABLE experiments (
     id TEXT PRIMARY KEY NOT NULL,
     hypothesis_id TEXT NOT NULL REFERENCES hypotheses(id) ON DELETE CASCADE,
@@ -22,6 +26,7 @@ void createSchemaV3(Database db) {
     method TEXT NOT NULL,
     created_at INTEGER NOT NULL
   )''');
+  // evidence tablosunu oluşturur
   db.execute('''CREATE TABLE evidence (
     id TEXT PRIMARY KEY NOT NULL,
     experiment_id TEXT NOT NULL REFERENCES experiments(id) ON DELETE CASCADE,
@@ -32,6 +37,7 @@ void createSchemaV3(Database db) {
     recorded_at INTEGER,
     has_consent INTEGER NOT NULL DEFAULT 1
   )''');
+  // decisions tablosunu oluşturur
   db.execute('''CREATE TABLE decisions (
     id TEXT PRIMARY KEY NOT NULL,
     venture_id TEXT NOT NULL REFERENCES ventures(id) ON DELETE CASCADE,
@@ -41,15 +47,21 @@ void createSchemaV3(Database db) {
     evidence_ids TEXT NOT NULL,
     created_at INTEGER NOT NULL
   )''');
+  // Sorguları hızlandırmak için indeks oluşturur
   db.execute('CREATE INDEX idx_hypotheses_venture ON hypotheses(venture_id)');
+  // Sorguları hızlandıran indeks oluşturur
   db.execute(
+    // Oluşturulacak indeksin SQL komutunu belirler
     'CREATE INDEX idx_experiments_hypothesis ON experiments(hypothesis_id)',
   );
+  // Sorguları hızlandırmak için indeks oluşturur
   db.execute('CREATE INDEX idx_evidence_experiment ON evidence(experiment_id)');
+  // Sorguları hızlandırmak için indeks oluşturur
   db.execute('CREATE INDEX idx_decisions_venture ON decisions(venture_id)');
 }
-
+// Veritabanını yeni şema sürümüne geçirir
 void migrateV2ToV3(Database db) {
+  // decisions tablosunu oluşturur
   db.execute('''CREATE TABLE decisions (
     id TEXT PRIMARY KEY NOT NULL,
     venture_id TEXT NOT NULL REFERENCES ventures(id) ON DELETE CASCADE,
@@ -59,5 +71,6 @@ void migrateV2ToV3(Database db) {
     evidence_ids TEXT NOT NULL,
     created_at INTEGER NOT NULL
   )''');
+  // Sorguları hızlandırmak için indeks oluşturur
   db.execute('CREATE INDEX idx_decisions_venture ON decisions(venture_id)');
 }

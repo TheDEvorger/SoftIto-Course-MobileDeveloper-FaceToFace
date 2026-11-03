@@ -1,22 +1,24 @@
+// Flutter tema kütüphanesini ekler
 import 'package:flutter/material.dart';
-
+// Özel tema renklerini ekler
 import '../constants/app_colors.dart';
 
-/// Extension methods on [BuildContext] to access theme colors and typography cleanly.
+// BuildContext tipine yeni getterlar ekler
 extension ThemeContextExtensions on BuildContext {
-  /// Theme-aware semantic colors for the current active theme.
+  // Aktif temanın özel renklerini getirir
   AppThemeColors get colors =>
+      // Önce temada kayıtlı AppThemeColors değerini arar
       Theme.of(this).extension<AppThemeColors>() ??
+      // Kayıtlı renk yoksa temanın açıklığını kontrol eder
       (Theme.of(this).brightness == Brightness.dark
+          // Koyu tema varsa koyu renkleri döndürür
           ? AppThemeColors.dark
+          // Değilse açık renkleri döndürür
           : AppThemeColors.light);
-
-  /// Whether current theme is dark.
+  // Aktif tema koyuysa true döndürür
   bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
-
-  /// Shorthand to Theme textTheme.
+  // Aktif temanın yazı stillerini getirir
   TextTheme get textTheme => Theme.of(this).textTheme;
-
-  /// Shorthand to Theme colorScheme.
+  // Aktif temanın renk şemasını getirir
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }

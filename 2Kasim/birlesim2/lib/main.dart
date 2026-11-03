@@ -60,28 +60,146 @@ class CanliApiUrunServisi implements IUrunServisi {
         throw Exception("Sunucu Hatası ${yanit.statusCode}");
       }
     } catch (e) {
-      print('Ağ Hatası: $e');
+      debugPrint('Ağ Hatası: $e');
       rethrow;
     }
   }
 }
 
-void main(){
-  runApp(
-    const listecibasi();
-  )
+void main() {
+  runApp(const UrunUygulamasi());
+}
+
+class UrunUygulamasi extends StatelessWidget {
+  const UrunUygulamasi({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Ürün Listesi',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.indigo,
+        useMaterial3: true,
+      ),
+      home: const Listecibasi(),
+    );
+  }
 }
 
 class Listecibasi extends StatefulWidget {
-  const Listecibasi({super.key});
+  const Listecibasi({super.key, this.servis});
+
+  final IUrunServisi? servis;
 
   @override
   State<Listecibasi> createState() => _ListecibasiState();
 }
 
 class _ListecibasiState extends State<Listecibasi> {
+  late final IUrunServisi _servis;
+  late Future<List<UrunModel>> _urunlerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _servis = widget.servis ?? CanliApiUrunServisi();
+    _urunlerFuture = _servis.urunleriGetir();
+  }
+
+  Future<void> _yenile() async {
+    setState(() {
+      _urunlerFuture = _servis.urunleriGetir();
+    });
+    try {
+      await _urunlerFuture;
+    } catch (_) {
+      // Hata FutureBuilder tarafından gösterilir.
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ürünler'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _yenile,
+          ),
+        ],
+      ),
+      body: FutureBuilder<List<UrunModel>>(
+        future: _urunlerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Bir hata oluştu:\n${snapshot.error}',
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: _yenile,
+                      child: const Text('Tekrar Dene'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          final urunler = snapshot.data ?? [];
+          if (urunler.isEmpty) {
+            return const Center(child: Text('Ürün bulunamadı.'));
+          }
+
+          return RefreshIndicator(
+            onRefresh: _yenile,
+            child: ListView.separated(
+              itemCount: urunler.length,
+              separatorBuilder: (_, _) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final urun = urunler[index];
+                return ListTile(
+                  leading: SizedBox(
+                    width: 56,
+                    height: 56,
+                    child: Image.network(
+                      urun.resimURL,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, _, _) =>
+                          const Icon(Icons.image_not_supported),
+                    ),
+                  ),
+                  title: Text(
+                    urun.baslik,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  subtitle: Text(urun.kategori),
+                  trailing: Text(
+                    '\$${urun.fiyat.toStringAsFixed(2)}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
-}
+}

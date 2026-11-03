@@ -18,7 +18,7 @@ class UrunDetayEkrani extends StatelessWidget {
     super.key,
     // Gösterilecek ürün nesnesinin zorunlu olduğunu belirtir
     required this.urun,
-  // Kurucu metodun kapanış parantezi
+    // Kurucu metodun kapanış parantezi
   });
 
   // Ekranın görsel ağacını inşa eden build metodu
@@ -33,7 +33,7 @@ class UrunDetayEkrani extends StatelessWidget {
         title: const Text('Ürün Detayı'),
         // Başlığı ortalar
         centerTitle: true,
-      // AppBar kapanışı
+        // AppBar kapanışı
       ),
       // Sayfa içeriğinin taşmasını önleyen ve kaydırılmasını sağlayan SingleChildScrollView
       body: SingleChildScrollView(
@@ -67,15 +67,15 @@ class UrunDetayEkrani extends StatelessWidget {
                       if (progress == null) return child;
                       // Yüklenirken dönen çember
                       return const Center(child: CircularProgressIndicator());
-                    // loadingBuilder kapanışı
+                      // loadingBuilder kapanışı
                     },
-                  // Image.network kapanışı
+                    // Image.network kapanışı
                   ),
-                // SizedBox kapanışı
+                  // SizedBox kapanışı
                 ),
-              // Center kapanışı
+                // Center kapanışı
               ),
-            // Hero kapanışı
+              // Hero kapanışı
             ),
             // Resim ile bilgiler arasına 20 piksel dikey boşluk
             const SizedBox(height: 20),
@@ -88,14 +88,15 @@ class UrunDetayEkrani extends StatelessWidget {
                 // Kategori adı kutusu
                 Container(
                   // Kutu içi kenar boşlukları
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   // Kutu dekorasyonu
                   decoration: BoxDecoration(
                     // Açık indigo zemin rengi
                     color: Colors.indigo.shade50,
                     // Yuvarlatılmış köşeler
                     borderRadius: BorderRadius.circular(8),
-                  // BoxDecoration kapanışı
+                    // BoxDecoration kapanışı
                   ),
                   // Kategori adı metni
                   child: Text(
@@ -109,17 +110,17 @@ class UrunDetayEkrani extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       // İndigo renk
                       color: Colors.indigo.shade700,
-                    // TextStyle kapanışı
+                      // TextStyle kapanışı
                     ),
-                  // Text kapanışı
+                    // Text kapanışı
                   ),
-                // Container kapanışı
+                  // Container kapanışı
                 ),
                 // Stok durum rozeti
                 StokRozeti(stoktaVarMi: urun.stoktaVarMi),
-              // Row çocukları kapanışı
+                // Row çocukları kapanışı
               ],
-            // Row kapanışı
+              // Row kapanışı
             ),
             // 12 piksel dikey boşluk
             const SizedBox(height: 12),
@@ -133,9 +134,9 @@ class UrunDetayEkrani extends StatelessWidget {
                 fontSize: 20,
                 // Kalın yazı karakteri
                 fontWeight: FontWeight.bold,
-              // TextStyle kapanışı
+                // TextStyle kapanışı
               ),
-            // Text kapanışı
+              // Text kapanışı
             ),
             // 8 piksel dikey boşluk
             const SizedBox(height: 8),
@@ -157,9 +158,9 @@ class UrunDetayEkrani extends StatelessWidget {
                     fontSize: 14,
                     // Kalın yazı
                     fontWeight: FontWeight.bold,
-                  // TextStyle kapanışı
+                    // TextStyle kapanışı
                   ),
-                // Text kapanışı
+                  // Text kapanışı
                 ),
                 // 6 piksel boşluk
                 const SizedBox(width: 6),
@@ -173,13 +174,13 @@ class UrunDetayEkrani extends StatelessWidget {
                     fontSize: 13,
                     // Gri renk
                     color: Colors.grey.shade600,
-                  // TextStyle kapanışı
+                    // TextStyle kapanışı
                   ),
-                // Text kapanışı
+                  // Text kapanışı
                 ),
-              // Row çocukları kapanışı
+                // Row çocukları kapanışı
               ],
-            // Row kapanışı
+              // Row kapanışı
             ),
             // 16 piksel dikey boşluk
             const SizedBox(height: 16),
@@ -197,9 +198,9 @@ class UrunDetayEkrani extends StatelessWidget {
                 fontSize: 16,
                 // Kalın yazı tipi
                 fontWeight: FontWeight.bold,
-              // TextStyle kapanışı
+                // TextStyle kapanışı
               ),
-            // Text kapanışı
+              // Text kapanışı
             ),
             // 8 piksel dikey boşluk
             const SizedBox(height: 8),
@@ -215,17 +216,17 @@ class UrunDetayEkrani extends StatelessWidget {
                 height: 1.5,
                 // Koyu gri yazı rengi
                 color: Colors.grey.shade800,
-              // TextStyle kapanışı
+                // TextStyle kapanışı
               ),
-            // Text kapanışı
+              // Text kapanışı
             ),
             // Sayfanın altındaki sabit barın üstünü kapatmaması için 40 piksel boşluk
             const SizedBox(height: 40),
-          // Column çocukları kapanışı
+            // Column çocukları kapanışı
           ],
-        // Column kapanışı
+          // Column kapanışı
         ),
-      // SingleChildScrollView kapanışı
+        // SingleChildScrollView kapanışı
       ),
       // Ekranın en altında sabit duran fiyat ve satın alma çubuğu
       bottomNavigationBar: Container(
@@ -240,16 +241,16 @@ class UrunDetayEkrani extends StatelessWidget {
             // Kutu gölgesi tanımı
             BoxShadow(
               // Hafif siyah ton
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               // Gölge yayılma yarıçapı
               blurRadius: 10,
               // Gölgenin yukarı doğru konumu
               offset: const Offset(0, -4),
-            // BoxShadow kapanışı
+              // BoxShadow kapanışı
             ),
-          // boxShadow listesi kapanışı
+            // boxShadow listesi kapanışı
           ],
-        // BoxDecoration kapanışı
+          // BoxDecoration kapanışı
         ),
         // Güvenli alan (özellikle alt çizgiye sahip telefonlar için)
         child: SafeArea(
@@ -273,7 +274,7 @@ class UrunDetayEkrani extends StatelessWidget {
                     'Toplam Fiyat',
                     // Etiket stili
                     style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                  // Text kapanışı
+                    // Text kapanışı
                   ),
                   // 2 basamaklı ürün satış fiyatı
                   Text(
@@ -287,13 +288,13 @@ class UrunDetayEkrani extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                       // İndigo renk
                       color: Colors.indigo.shade700,
-                    // TextStyle kapanışı
+                      // TextStyle kapanışı
                     ),
-                  // Text kapanışı
+                    // Text kapanışı
                   ),
-                // Column çocukları kapanışı
+                  // Column çocukları kapanışı
                 ],
-              // Column kapanışı
+                // Column kapanışı
               ),
               // Sepete ekleme butonu
               ElevatedButton.icon(
@@ -311,11 +312,11 @@ class UrunDetayEkrani extends StatelessWidget {
                             backgroundColor: Colors.green.shade700,
                             // Ekranda kalma süresi
                             duration: const Duration(seconds: 2),
-                          // SnackBar kapanışı
+                            // SnackBar kapanışı
                           ),
-                        // showSnackBar kapanışı
+                          // showSnackBar kapanışı
                         );
-                      // Tıklama fonksiyonu kapanışı
+                        // Tıklama fonksiyonu kapanışı
                       }
                     // Stokta yoksa null geçerek butonu tıkspanamaz (disabled) yapar
                     : null,
@@ -330,28 +331,29 @@ class UrunDetayEkrani extends StatelessWidget {
                   // Buton üzerindeki yazı ve ikon rengi
                   foregroundColor: Colors.white,
                   // Buton iç boşlukları
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   // Yuvarlak köşeler
                   shape: RoundedRectangleBorder(
                     // 12 piksellik ovallik
                     borderRadius: BorderRadius.circular(12),
-                  // RoundedRectangleBorder kapanışı
+                    // RoundedRectangleBorder kapanışı
                   ),
-                // styleFrom kapanışı
+                  // styleFrom kapanışı
                 ),
-              // ElevatedButton kapanışı
+                // ElevatedButton kapanışı
               ),
-            // Row çocukları kapanışı
+              // Row çocukları kapanışı
             ],
-          // Row kapanışı
+            // Row kapanışı
           ),
-        // SafeArea kapanışı
+          // SafeArea kapanışı
         ),
-      // Container kapanışı
+        // Container kapanışı
       ),
-    // Scaffold kapanışı
+      // Scaffold kapanışı
     );
-  // build metodu kapanış parantezi
+    // build metodu kapanış parantezi
   }
 // UrunDetayEkrani sınıfının kapanış parantezi
 }
