@@ -1,0 +1,143 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "kgXuQJ-1IA3sPIyg3WNjS",
+      "type": "text",
+      "x": 488.60003662109375,
+      "y": 170.59999084472656,
+      "width": 633.9996337890625,
+      "height": 275,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a1",
+      "roundness": null,
+      "seed": 1842741104,
+      "version": 440,
+      "versionNonce": 643883408,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "nIJ0PTIn2fni-SSU5JgF0",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1793683174904,
+      "link": null,
+      "locked": false,
+      "text": "[KOLEKSİYON: \"users\"](Dizin/Klsaör)\n            [Döküman:\"crazyBoy_01](Json dosyası -1 Mb)\n                        ad:\"crazyBoy alttanTire\"(String)\n                        bakiye:100000.75(Number)\n                        aktifMi:true(Boolean)\n                        roller:[\"ogrenci\",\"mentor\"](Array)\n                        adres:{sehir:\"Çanakkale\",ilce:\"Bozcaada\"}(Map)\n                        kayitTarihi:Timestamp (serverTimestamp)\n                        \n\n                           ",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "[KOLEKSİYON: \"users\"](Dizin/Klsaör)\n            [Döküman:\"crazyBoy_01](Json dosyası -1 Mb)\n                        ad:\"crazyBoy alttanTire\"(String)\n                        bakiye:100000.75(Number)\n                        aktifMi:true(Boolean)\n                        roller:[\"ogrenci\",\"mentor\"](Array)\n                        adres:{sehir:\"Çanakkale\",ilce:\"Bozcaada\"}(Map)\n                        kayitTarihi:Timestamp (serverTimestamp)\n                        \n\n                           ",
+      "autoResize": true,
+      "lineHeight": 1.25
+    },
+    {
+      "id": "nIJ0PTIn2fni-SSU5JgF0",
+      "type": "arrow",
+      "x": 685.4000244140625,
+      "y": 374.6000061035156,
+      "width": 0,
+      "height": 71.39999389648438,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a2",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 767547760,
+      "version": 51,
+      "versionNonce": 952226704,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1793683174904,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          71.39999389648438
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": {
+        "elementId": "kgXuQJ-1IA3sPIyg3WNjS",
+        "focus": 0,
+        "gap": 1
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
+    },
+    {
+      "id": "YPMdhqyeoCtf-7bmHbsnX",
+      "type": "text",
+      "x": 691.6000061035156,
+      "y": 452.3999938964844,
+      "width": 548.3597412109375,
+      "height": 100,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a3",
+      "roundness": null,
+      "seed": 1489548656,
+      "version": 191,
+      "versionNonce": 578696560,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1793683344819,
+      "link": null,
+      "locked": false,
+      "text": "[Alt Koleksiyon(Subcollection):\"siparisler\"]\n        [Döküman:\"sip_99asda33qr34\"]\n                urun:\"Macbook Pro M6 32 gb ram 2 tb ssd\"\n                tutar:50000.00",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "[Alt Koleksiyon(Subcollection):\"siparisler\"]\n        [Döküman:\"sip_99asda33qr34\"]\n                urun:\"Macbook Pro M6 32 gb ram 2 tb ssd\"\n                tutar:50000.00",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
