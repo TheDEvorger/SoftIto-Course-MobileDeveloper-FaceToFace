@@ -1,18 +1,28 @@
+// SQLite veritabanı kütüphanesini ekler
 import 'package:sqflite/sqflite.dart';
-
+// Sabitleri veya ortak işlemleri tutan, nesne oluşturulamayan sınıf
 abstract final class GardenDatabaseSchema {
+  // güncel version için başlangıç sayısını belirler
   static const int currentVersion = 1;
-
+  // tercihler tablosu için metin değeri belirler
   static const String tablePreferences = 'preferences';
+  // dersler tablosu için metin değeri belirler
   static const String tableSubjects = 'subjects';
+  // konular tablosu için metin değeri belirler
   static const String tableTopics = 'topics';
+  // konu ilerleme tablosu için metin değeri belirler
   static const String tableTopicProgress = 'topic_progress';
+  // deneme oturumları tablosu için metin değeri belirler
   static const String tableExamSessions = 'exam_sessions';
+  // deneme puanları tablosu için metin değeri belirler
   static const String tableExamScores = 'exam_scores';
+  // günlük görevler tablosu için metin değeri belirler
   static const String tableDailyTasks = 'daily_tasks';
+  // odaklanma kayıtları tablosu için metin değeri belirler
   static const String tableFocusSessions = 'focus_sessions';
-
+  // tables bilgisini oluşturur
   static Future<void> createTables(Database db) async {
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tablePreferences (
         id TEXT PRIMARY KEY,
@@ -24,7 +34,7 @@ abstract final class GardenDatabaseSchema {
         humorous_exit_enabled INTEGER NOT NULL DEFAULT 0
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableSubjects (
         id TEXT PRIMARY KEY,
@@ -34,7 +44,7 @@ abstract final class GardenDatabaseSchema {
         question_count INTEGER NOT NULL DEFAULT 40
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableTopics (
         id TEXT PRIMARY KEY,
@@ -45,7 +55,7 @@ abstract final class GardenDatabaseSchema {
         FOREIGN KEY (subject_id) REFERENCES $tableSubjects(id) ON DELETE CASCADE
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableTopicProgress (
         topic_id TEXT PRIMARY KEY,
@@ -55,7 +65,7 @@ abstract final class GardenDatabaseSchema {
         FOREIGN KEY (topic_id) REFERENCES $tableTopics(id) ON DELETE CASCADE
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableExamSessions (
         id TEXT PRIMARY KEY,
@@ -69,7 +79,7 @@ abstract final class GardenDatabaseSchema {
         total_net REAL NOT NULL DEFAULT 0.0
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableExamScores (
         id TEXT PRIMARY KEY,
@@ -83,7 +93,7 @@ abstract final class GardenDatabaseSchema {
         FOREIGN KEY (exam_id) REFERENCES $tableExamSessions(id) ON DELETE CASCADE
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableDailyTasks (
         id TEXT PRIMARY KEY,
@@ -95,7 +105,7 @@ abstract final class GardenDatabaseSchema {
         is_done INTEGER NOT NULL DEFAULT 0
       )
     ''');
-
+    // SQL komutunu çalıştırır
     await db.execute('''
       CREATE TABLE $tableFocusSessions (
         id TEXT PRIMARY KEY,
@@ -107,18 +117,26 @@ abstract final class GardenDatabaseSchema {
       )
     ''');
   }
-
+  // upgrade bilgisini işler
   static Future<void> onUpgrade(
+    // İlgili değeri veya görünüm ayarını belirler
     Database db,
+    // İlgili değeri veya görünüm ayarını belirler
     int oldVersion,
+    // İlgili değeri veya görünüm ayarını belirler
     int newVersion,
   ) async {
+    // Belirtilen koşul doğruysa işlemi yapar
     if (oldVersion < 2) {
       // Örnek sürüm 2 migration adımı: indeksler veya ek metadata
+      // SQL komutunu çalıştırır
       await db.execute(
+        // "CREATE INDEX IF NOT EXISTS idx_exam_occurre…" metnini kullanır
         'CREATE INDEX IF NOT EXISTS idx_exam_occurred ON $tableExamSessions(occurred_at)',
       );
+      // SQL komutunu çalıştırır
       await db.execute(
+        // "CREATE INDEX IF NOT EXISTS idx_tasks_date O…" metnini kullanır
         'CREATE INDEX IF NOT EXISTS idx_tasks_date ON $tableDailyTasks(scheduled_date)',
       );
     }
