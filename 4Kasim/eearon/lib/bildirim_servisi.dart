@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 // Arka planda gelen RemoteMessage bilgisini asenkron alır
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // Gelen bildirimin başlığını konsola yazdırmayı amaçlar ancak satırda yazım hatası var
-  print('Arka planda mesaj alındı: ${message.notification?.title}"};
+  print('Arka planda mesaj alındı: ${message.notification?.title}');
 }
 // Firebase bildirim izni ve cihaz tokenıyla ilgilenen servis sınıfı
 class BildirimServisi {
@@ -14,7 +14,7 @@ class BildirimServisi {
   // Bildirim iznini ve cihaz tokenını alma işlemlerini başlatır
   Future<void> baslat() async {
     // Kullanıcıdan bildirim izni ister ancak burada tanımsız bir değişken kullanılmış
-    NotificationSettings settings = await _firebaseMessaging.requestPermission(
+    NotificationSettings settings = await _fcm.requestPermission(
       // Uyarı bildirimleri için izin ister
       alert: true,
       // Uygulama simgesindeki bildirim sayısı için izin ister

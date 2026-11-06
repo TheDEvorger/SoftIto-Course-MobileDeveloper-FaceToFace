@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 // Bildirim veri modelini projeye ekler
 import '../models/bildirim_modeli.dart';
+
 // Bildirim merkezi kartını gösteren değişmez widget
 class BildirimListesiKarti extends StatelessWidget {
   // Ekranda gösterilecek bildirim listesini tutar
@@ -12,6 +13,7 @@ class BildirimListesiKarti extends StatelessWidget {
   final bool konuyaAboneMi;
   // Abonelik değişimini üst widgeta bildiren callback
   final ValueChanged<bool> onAboneDegisti;
+
   // Kartın kullanacağı verileri constructor üzerinden alır
   const BildirimListesiKarti({
     // Widgetın key bilgisini üst sınıfa gönderir
@@ -25,6 +27,7 @@ class BildirimListesiKarti extends StatelessWidget {
     // Abonelik callbackinin verilmesini zorunlu tutar
     required this.onAboneDegisti,
   });
+
   // Üst sınıfın build metodunu yeniden yazar
   @override
   // Kartın arayüzünü oluşturur
@@ -75,8 +78,8 @@ class BildirimListesiKarti extends StatelessWidget {
                       fontSize: 16,
                       // Başlığı kalın gösterir
                       fontWeight: FontWeight.bold,
-                      // Alfa değeri 15 olan çok saydam bir yazı rengi kullanır
-                      color: Color.fromARGB(15, 231, 118, 38),
+                      // Başlık rengi
+                      color: Color(0xFF0F172A),
                     ),
                   ),
                 ),
@@ -86,24 +89,21 @@ class BildirimListesiKarti extends StatelessWidget {
                   value: konuyaAboneMi,
                   // Anahtar değişince callbacki çağırır
                   onChanged: onAboneDegisti,
-                  // Aktif anahtar rengi çok saydam bir renkle belirlenmiş
-                  activeColor: const Color.fromARGB(15, 160, 40, 50),
+                  activeThumbColor: const Color(0xFF006C4A),
                 ),
               ],
             ),
             // Aboneliğin açık veya kapalı olduğunu yazıyla gösterir
             Text(
               // Abonelik durumuna göre mesajı değiştirir
-              konuyaAboneMi ? 'tüm sınıf yayını aktif' : 'yayın kapalı',
+              konuyaAboneMi ? 'Tüm sınıf yayını aktif' : 'Yayın kapalı',
               // Durum yazısının stilini oluşturur
               style: TextStyle(
                 // Yazı boyutunu 12 yapar
                 fontSize: 12,
                 // Abonelik açıksa ilk rengi yoksa griyi kullanır
                 color: konuyaAboneMi
-                    // Abonelik açıkken alfa değeri 15 olan çok saydam renk kullanır
-                    ? const Color.fromARGB(15, 24, 59, 17)
-                    // Abonelik kapalıysa gri rengi kullanır
+                    ? const Color(0xFF006C4A)
                     : Colors.grey.shade600,
                 // Durum yazısını yarı kalın gösterir
                 fontWeight: FontWeight.w600,
@@ -118,7 +118,7 @@ class BildirimListesiKarti extends StatelessWidget {
               // Kutunun görünümünü ayarlar
               decoration: BoxDecoration(
                 // Kutunun arka plan rengini koyu yapar
-                color: const Color(0XFF0F172A),
+                color: const Color(0xFF0F172A),
                 // Köşeleri 8 birim yuvarlar
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -131,11 +131,11 @@ class BildirimListesiKarti extends StatelessWidget {
                   // Token başlığını gösterir
                   const Text(
                     // Başlık metnini belirler
-                    "Cihazın FCM Tokeni",
+                    'Cihazın FCM Tokeni',
                     // Başlığın yazı stilini belirler
                     style: TextStyle(
                       // Başlığın rengini belirler
-                      color: Color.fromARGB(255, 26, 40, 52),
+                      color: Color(0xFF94A3B8),
                       // Başlığın yazı boyutunu 11 yapar
                       fontSize: 11,
                     ),
@@ -145,71 +145,95 @@ class BildirimListesiKarti extends StatelessWidget {
                   // Tokenın seçilip kopyalanabilmesini sağlar
                   SelectableText(
                     // Token yoksa token alınıyor mesajını gösterir
-                    token ?? 'token alınıyor',
+                    token ?? 'Token alınıyor...',
                     // Token yazısının stilini belirler
                     style: const TextStyle(
                       // Token yazısının rengini belirler
-                      color: Color(0XFF388888),
+                      color: Color(0xFF38BDF8),
                       // Tokenın yazı boyutunu 11 yapar
                       fontSize: 11,
                       // Tokenı eşit aralıklı yazı tipiyle gösterir
                       fontFamily: 'monospace',
-                    )
-                  )
+                    ),
+                  ),
                 ],
               ),
             ),
             // Dikeyde 14 boşluk bırakır
-            const SizedBox(height:14),
+            const SizedBox(height: 14),
             // Gelen bildirimlerin sayısını gösteren metni oluşturur
             Text(
-              // Liste uzunluğunu başlığa ekler, sonunda virgül eksik
-              'Gelen Bildirimler (${bildirimler.length}):'
-              // Başlığın yazı stilini belirler
+              'Gelen Bildirimler (${bildirimler.length}):',
               style: const TextStyle(
-                // Başlığı kalın yapar
-                fontWeight:  FontWeight.bold,
-                // Yazı boyutunu 14 yapar
+                fontWeight: FontWeight.bold,
                 fontSize: 14,
-                // Alfa sıfır olduğu için yazı rengi tamamen şeffaf
-                color: Color.fromARGB(0, 5, 249, 253),
-              )
-            )
+                color: Color(0xFF0F172A),
+              ),
+            ),
             // Dikeyde 8 boşluk bırakır
             const SizedBox(height: 8),
             // Bildirimler boşsa mesaj, doluysa liste gösterir
-            bildirimler.isEmpty ? Container(
-              // Boş liste kutusunun iç boşluğunu ayarlar
-              padding: const EdgeInsets.all(24),
-              // Kutudaki yazıyı ortalar
-              alignment: Alignment.center,
-              // Boş liste mesajını oluşturur
-              child: Text(
-                // Mesaj metnini belirler
-                'Henüz gelen bildirim yok',
-                // Yazıyı yatayda ortalar
-                textAlign: TextAlign.center,
-                // Mesajın stilini belirler
-                style: TextStyle(
-                  // Yazı boyutunu 12 yapar
-                  fontSize: 12,
-                  // Yazı rengini açık gri yapar
-                  color: Colors.grey.shade500,
-                ),
-              ),
-            // Bildirim varsa ayırıcılı liste oluşturur
-            ) : ListView.separated(
-              // Listeyi içindeki elemanların boyuna göre daraltır
-              shrinkWrap: true,
-              // Listenin kendi kaydırmasını kapatır
-              physics: const NeverScrollableScrollPhysics(),
-              // Listedeki kayıt sayısını belirler
-              itemCount: bildirimler.length,
-              // Kayıtların arasına ince çizgi ekler
-              separatorBuilder: (_, __) => const Divider(height:1),
-              // Her kayıt için widget üretmesi gerekir ama gövde boş
-              itemBuilder: (context, index) {},
-            ),
+            bildirimler.isEmpty
+                ? Container(
+                    // Boş liste kutusunun iç boşluğunu ayarlar
+                    padding: const EdgeInsets.all(24),
+                    // Kutudaki yazıyı ortalar
+                    alignment: Alignment.center,
+                    // Boş liste mesajını oluşturur
+                    child: Text(
+                      // Mesaj metnini belirler
+                      'Henüz gelen bildirim yok',
+                      // Yazıyı yatayda ortalar
+                      textAlign: TextAlign.center,
+                      // Mesajın stilini belirler
+                      style: TextStyle(
+                        // Yazı boyutunu 12 yapar
+                        fontSize: 12,
+                        // Yazı rengini açık gri yapar
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  )
+                : ListView.separated(
+                    // Listeyi içindeki elemanların boyuna göre daraltır
+                    shrinkWrap: true,
+                    // Listenin kendi kaydırmasını kapatır
+                    physics: const NeverScrollableScrollPhysics(),
+                    // Listedeki kayıt sayısını belirler
+                    itemCount: bildirimler.length,
+                    // Kayıtların arasına ince çizgi ekler
+                    separatorBuilder: (_, _) => const Divider(height: 1),
+                    // Her kayıt için widget üretir
+                    itemBuilder: (context, index) {
+                      final b = bildirimler[index];
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: const CircleAvatar(
+                          backgroundColor: Color(0xFFE0F2FE),
+                          child: Icon(
+                            Icons.mark_email_unread_outlined,
+                            color: Color(0xFF0284C7),
+                            size: 20,
+                          ),
+                        ),
+                        title: Text(
+                          b.baslik,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(b.icerik),
+                        trailing: Text(
+                          '${b.tarih.hour.toString().padLeft(2, '0')}:${b.tarih.minute.toString().padLeft(2, '0')}',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),

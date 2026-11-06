@@ -7,7 +7,7 @@ class BildirimModeli {
   // Bildirimin içerik metnini tutar
   final String icerik;
   // Bildirimin tarih bilgisini metin olarak tutar
-  final String tarih;
+  final DateTime tarih;
   // Bildirimin okunup okunmadığını tutar
   final bool okundumu;
   // Bildirim bilgilerini alan constructor
@@ -32,7 +32,7 @@ class BildirimModeli {
     // Yeni içerik bilgisi isteğe bağlıdır
     String? icerik,
     // Yeni tarih bilgisi isteğe bağlıdır
-    String? tarih,
+    DateTime? tarih,
     // Okundu bilgisi isteğe bağlıdır
     bool? okundumu,
   }) {

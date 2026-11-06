@@ -13,12 +13,12 @@ class MedyaSeciciServisi{
       // Görsel kaynağını galeri olarak belirler
       source: ImageSource.gallery,
       // Görsel kalitesini 80 olarak ayarlar ancak satırın sonunda virgül eksik
-      imageQuality: 80
+      imageQuality: 80,
       // Seçilen görselin genişliğini en fazla 1200 ile sınırlar
       maxWidth: 1200,
     );
     // Seçim yapılmadıysa null döndürür ancak satırda fazladan kapatma parantezi var
-    if (secilen == null) return null;    }
+    if (secilen == null) return null;
     // Seçilen görselin yolundan File oluşturup döndürür
     return File(secilen.path);
   }

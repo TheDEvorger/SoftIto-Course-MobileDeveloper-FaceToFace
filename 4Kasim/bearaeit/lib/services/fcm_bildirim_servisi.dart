@@ -12,7 +12,7 @@ Future<void> fcmBackgroundHandler(RemoteMessage message) async {}
 // FCM ve yerel bildirim işlemlerini bir arada tutan sınıf
 class FcmBildirimServisi {
   // FirebaseMessaging nesnesini alır
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  FirebaseMessaging get _fcm => FirebaseMessaging.instance;
   // Yerel bildirim eklentisini tutacak alanı tanımlar
   final FlutterLocalNotificationsPlugin _localPlugin =
       // Yerel bildirim eklentisinin nesnesini oluşturur
@@ -24,27 +24,39 @@ class FcmBildirimServisi {
   }) async {
     // Bildirim, rozet ve ses izinlerini kullanıcıdan ister
     await _fcm.requestPermission(alert: true, badge: true, sound: true);
+    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
     // iOS için bildirim başlangıç ayarlarını oluşturur
     const iosSettings = DarwinInitializationSettings();
     // İki platformun başlangıç ayarlarını birleştirir
     const initSettings = InitializationSettings(
       // Android ayarlarını atamayı dener fakat AndroidSettings tanımlı değil
-      android: AndroidSettings,
+      android: androidSettings,
       // iOS ayarlarını ekler
       iOS: iosSettings,
     );
     // Yerel bildirim eklentisini başlatır
-    await _localPlugin.initialize(initSettings);
+    await _localPlugin.initialize(settings: initSettings);
     // Uygulama açıkken gelen FCM mesajlarını dinler
     FirebaseMessaging.onMessage.listen((message) {
       // Yerel bildirim çağırır fakat bu isimle bir metot tanımlı değil
-      yerelBildirimGoster(message);
+      _yerelBildirimGoster(message);
       // Gelen mesajı dışarıdan verilen callbacke gönderir
       onMesajGeldi(message);
     });
     // Arka plan bildirimlerini işleyecek fonksiyonu kaydeder
     FirebaseMessaging.onBackgroundMessage(fcmBackgroundHandler);
   }
+
+  Future<String?> tokenAl() async {
+    try {
+      return await _fcm.getToken();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  
+
   // Verilen FCM konusuna abone olur
   Future<void> konuyaAboneOl(String konu) async {
     // Konu adıyla Firebase üzerinden abonelik başlatır
@@ -60,9 +72,9 @@ class FcmBildirimServisi {
     // Android bildirim kanalı ayarlarını oluşturur
     const androidDetails = AndroidNotificationDetails(
       // Kanal kimliği için tanımsız bir isim kullanılmış
-      softit_fcm_channel_id,
+      'softit_fcm_channel_id',
       // Kanal adında tırnaksız metin var, bu satır hatalı
-      Softito bildirimleri,
+      'Softito bildirimleri',
       // Bildirim kanalının açıklamasını belirler
       channelDescription: 'FCm bildirimleri için kanal',
       // Bildirim önemini en yüksek seviyeye çıkarır
@@ -80,13 +92,13 @@ class FcmBildirimServisi {
     // Telefonun yerel bildirimini göstermeyi ister
     await _localPlugin.show(
       // Mesajın hash kodunu bildirim kimliği olarak kullanır
-      message.hashCode,
+      id: message.hashCode,
       // Bildirim başlığını alır, yoksa varsayılan başlığı kullanır
-      message.notification?.title ?? 'Yeni Bİldirim',
+      title: message.notification?.title ?? 'Yeni Bİldirim',
       // Bildirim gövdesi alınmak isteniyor fakat Notification adı hatalı
-      message.Notification?.body ?? '',
+      body: message.notification?.body ?? '',
       // Platform bildirim ayrıntılarını gönderir
-      details,
+      notificationDetails: details,
     );
   }
 }

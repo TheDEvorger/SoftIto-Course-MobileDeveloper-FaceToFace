@@ -20,7 +20,7 @@ class StorageServisi {
     // Yüklenecek dosyanın ek bilgilerini hazırlar
     final metadata = SettableMetadata(
       // Dosyanın türünü JPEG olarak belirler fakat devamına virgül eksik
-      contentType: 'image/jpeg'
+      contentType: 'image/jpeg',
       // Dosyaya özel metadata alanı oluşturur
       customMetadata: {
       // Yükleyici bilgisini metadata içine ekler
@@ -28,13 +28,14 @@ class StorageServisi {
       },
     );
     // Dosyayı metadata ile yüklemeye başlar ve UploadTask döndürür
-    return ref.putFile(dosya, metadata);
+    final UploadTask task = ref.putFile(dosya, metadata);
+    // Yükleme durumunu dinlemeyi amaçlar ancak task burada tanımlı değil
+    task.snapshotEvents.listen((TaskSnapshot snapshot) {
+      // Gönderilen bayt miktarını toplam bayt miktarına bölerek ilerlemeyi hesaplar
+      final progress = snapshot.bytesTransferred / snapshot.totalBytes;
+      // Yükleme yüzdesini yazdırmayı amaçlar ancak yuzde değişkeni tanımlı değil
+      print('yükleniyor %${(progress * 100).toStringAsFixed(1)}');
+    });
+    return task;
   }
-  // Yükleme durumunu dinlemeyi amaçlar ancak task burada tanımlı değil
-  task.snapshot.listen((TaskSnapshot snapshot) {
-    // Gönderilen bayt miktarını toplam bayt miktarına bölerek ilerlemeyi hesaplar
-    final progress = snapshot.bytesTransferred / snapshot.totalBytes;
-    // Yükleme yüzdesini yazdırmayı amaçlar ancak yuzde değişkeni tanımlı değil
-    print('yükleniyor %${(yuzde*100).toStringAsFixed(1)}');
-  });
 }
